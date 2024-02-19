@@ -32,7 +32,7 @@ public class WordleApplication extends Application {
     }
 
     // This method launches the Application
-    public void go(String[] args) {
+    public void go() {
         Application.launch(WordleApplication.class);
     }
 
