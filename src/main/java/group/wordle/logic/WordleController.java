@@ -13,6 +13,7 @@ public class WordleController {
     public WordleController() {
     }
 
+    // This method returns the word to be guessed as a String
     public String getWord() {
         if (word == null) {
             return null;
@@ -28,6 +29,7 @@ public class WordleController {
         return word.getGuessNum();
     }
 
+    // This method processes a new guess from the user
     public void processGuess(String guess) {
         word.setGuessNum(word.getGuessNum() + 1);
         word.getGuessHistory().add(guess);
@@ -45,14 +47,17 @@ public class WordleController {
         }
     }
 
+    // This method provides one of the user's previous guesses
     public String getGuessHistory(int guessNum) {
         return word.getGuessHistory().get(guessNum);
     }
 
+    // This method checks if the letter is in the correct position
     public boolean correctPosition(String letter, int position) {
         return letter.equals(String.valueOf(word.getLetters().charAt(position)));
     }
 
+    // This method checks if the letter is contained in the word but in some other position
     public boolean incorrectPosition(String guessWord, String guessLetter, int position) {
         if (correctPosition(guessLetter, position)) {
             return false;
@@ -82,6 +87,7 @@ public class WordleController {
         return numThisLetterInAnswer - numThisLetterCorrectlyGuessed - numThisLetterPreviouslyIncorrectlyGuessed > 0;
     }
 
+    // This method checks if the game is over
     public boolean isGameOver() {
         if (word.getGuessHistory().isEmpty()) {
             return false;
@@ -90,18 +96,24 @@ public class WordleController {
         return lastGuess.equals(word.getLetters());
     }
 
+    // This method checks if this letter has been correctly guessed in the past
     public boolean hasBeenCorrectlyGuessed(String letter) {
         return word.getCorrectlyGuessedLetters().contains(letter);
     }
 
+    // This method checks if this letter has been "incorrectly" guessed in the past
+    // "incorrect" = contained  in the answer word, but in some other position
     public boolean hasBeenIncorrectlyGuessed(String letter) {
         return word.getIncorrectlyGuessedLetters().contains(letter);
     }
 
+    // This method checks if this letter has been guessed in the past
+    // and confirmed not to be in the answer word at all
     public boolean hasBeenConfirmedMissing(String letter) {
         return word.getGuessedMissingLetters().contains(letter);
     }
 
+    // This method generates a random word for the user to guess
     public String getRandomWord() {
         List<String> possibleWords = new ArrayList<>();
         possibleWords.add("SPORK");

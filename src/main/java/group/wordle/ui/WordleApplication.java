@@ -19,32 +19,34 @@ import javafx.scene.Parent;
 public class WordleApplication extends Application {
 
     private WordleController wordleController;
-    private List<Label> guessResultTiles;
-    private List<String> thisGuess;
-    private List<Button> letterButtons;
-
+    private List<Label> guessResultTiles;           // Stores historical guesses and results for each guessed letter
+    private List<String> thisGuess;                 // Stores the letters being added to the current guess
+    private List<Button> letterButtons;             // Stores the letter Buttons the user clicks on to enter a guess
 
     public WordleApplication() {
         wordleController = new WordleController();
-        wordleController.setWord(wordleController.getRandomWord());
         guessResultTiles = new ArrayList<>();
         thisGuess = new ArrayList<>();
         letterButtons = new ArrayList<>();
+        wordleController.setWord(wordleController.getRandomWord());
     }
 
+    // This method launches the Application
     public void go(String[] args) {
         Application.launch(WordleApplication.class);
     }
 
+    // This method configures the Stage
     @Override
     public void start(Stage stage) {
+        // Create Scene and set Stage
         Scene guessingScene = createGuessingScene();
-
         stage.setTitle("Desktop Wordle");
         stage.setScene(guessingScene);
         stage.show();
     }
 
+    // This method configures the Scene
     public Scene createGuessingScene() {
         // Create components
         Parent guessResultsLayout = createGuessResultsLayout();
@@ -61,6 +63,7 @@ public class WordleApplication extends Application {
         return new Scene(guessingSceneVBox);
     }
 
+    // This method creates the display of historically guessed tiles and their results
     private Parent createGuessResultsLayout() {
         VBox guessesVBox = new VBox();
         for (int row = 0; row < 6; row++) {
@@ -80,10 +83,10 @@ public class WordleApplication extends Application {
                 guessRowHBox.getChildren().add(guessTileLabel);
             }
         }
-
         return guessesVBox;
     }
 
+    // This method creates the interface for the user to add letters to the currently guessed word
     private Parent createGuessInputLayout() {
         String[] keyboardRow1 = {"Q","W","E","R","T","Y","U","I","O","P"};
         String[] keyboardRow2 = {"A","S","D","F","G","H","J","K","L"};
@@ -99,6 +102,7 @@ public class WordleApplication extends Application {
         return tileRows;
     }
 
+    // This method creates one tile of keyboard keys for use in adding letters to a guessed word
     private HBox createTileRow(String[] tileValues) {
         HBox tileRow = new HBox();
         tileRow.setSpacing(10);
@@ -115,15 +119,15 @@ public class WordleApplication extends Application {
         return tileRow;
     }
 
+    // This method handles a letter tile click from the user
     private void processTileClick(String tileValue) {
 
+        // If game is already over, do nothing
         if (wordleController.isGameOver()) {
             return;
         }
 
-        int tileNum = wordleController.getGuessNum() * 5 + thisGuess.size();
-
-        // If user wants to clear guess, then clear it and quit
+        // If user pressed CLEAR, then clear the guess and quit
         if (tileValue.equals("CLEAR")) {
             for (int i = 0; i < thisGuess.size(); i++) {
                 int resetTileNum = wordleController.getGuessNum() * 5 + i;
@@ -134,7 +138,7 @@ public class WordleApplication extends Application {
             return;
         }
 
-        // If the user is trying to enter a guess
+        // If user pressed ENTER, then process the guess and quit
         if (tileValue.equals("ENTER")) {
             if (thisGuess.size() < 5) {
                 return;
@@ -148,18 +152,22 @@ public class WordleApplication extends Application {
             return;
         }
 
-        // If all 5 tiles have already been entered for this guess, then quit
+        // If no more tiles can be added to the guess, then quit
         if (thisGuess.size() >= 5) {
             return;
         }
 
+        // Add the letter to the guess
         thisGuess.add(tileValue);
-
+        int tileNum = wordleController.getGuessNum() * 5 + thisGuess.size();
         guessResultTiles.get(tileNum).setText(tileValue);
         guessResultTiles.get(tileNum).setBorder(new Border(Style.BORDER_BLACK));
     }
 
+    // This method processes a guessed word
     private void processGuess(String guessWord, int guessNum) {
+
+        // Update logic
         wordleController.processGuess(guessWord);
 
         // Update guess result tiles
