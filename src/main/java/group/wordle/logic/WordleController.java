@@ -66,13 +66,9 @@ public class WordleController {
         int numThisLetterInAnswer = 0;
         int numThisLetterCorrectlyGuessed = 0;
         int numThisLetterPreviouslyIncorrectlyGuessed = 0;
-        int guessNumOfThisLetter = 0;
         for (int i = 0; i < answer.length(); i++) {
             String g = String.valueOf(guessWord.charAt(i));
             String a = String.valueOf(answer.charAt(i));
-            if (g.equals(guessLetter) && i <= position) {
-                guessNumOfThisLetter++;
-            }
             if (a.equals(guessLetter)) {
                 numThisLetterInAnswer++;
                 if (g.equals(guessLetter)) {
