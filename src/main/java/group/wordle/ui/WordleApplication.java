@@ -18,10 +18,10 @@ import javafx.scene.Parent;
 
 public class WordleApplication extends Application {
 
-    private WordleController wordleController;
-    private List<Label> guessResultTiles;           // Stores historical guesses and results for each guessed letter
-    private List<String> thisGuess;                 // Stores the letters being added to the current guess
-    private List<Button> letterButtons;             // Stores the letter Buttons the user clicks on to enter a guess
+    private final WordleController wordleController;
+    private final List<Label> guessResultTiles;           // Stores historical guesses and results for each guessed letter
+    private final List<String> thisGuess;                 // Stores the letters being added to the current guess
+    private final List<Button> letterButtons;             // Stores the letter Buttons the user clicks on to enter a guess
 
     public WordleApplication() {
         wordleController = new WordleController();
