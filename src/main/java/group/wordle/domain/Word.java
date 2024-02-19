@@ -7,10 +7,10 @@ public class Word {
 
     private String letters;
     private int guessNum;
-    private List<String> guessHistory;
-    private List<String> correctlyGuessedLetters;
-    private List<String> incorrectlyGuessedLetters;
-    private List<String> guessedMissingLetters;
+    private final List<String> guessHistory;
+    private final List<String> correctlyGuessedLetters;
+    private final List<String> incorrectlyGuessedLetters;
+    private final List<String> guessedMissingLetters;
 
     public Word(String letters) {
         this.letters = letters;
