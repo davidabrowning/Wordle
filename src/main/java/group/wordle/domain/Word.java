@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Word {
 
-    private String letters;
+    private final String letters;
     private int guessNum;
     private final List<String> guessHistory;
     private final List<String> correctlyGuessedLetters;
@@ -22,7 +22,6 @@ public class Word {
     }
 
     public String getLetters(){ return letters; }
-    public void setLetters(String letters){ this.letters = letters; }
     public int getGuessNum(){ return guessNum; }
     public void setGuessNum(int guessNum){ this.guessNum = guessNum; }
     public List<String> getGuessHistory(){ return guessHistory; }
