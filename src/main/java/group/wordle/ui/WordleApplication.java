@@ -158,10 +158,10 @@ public class WordleApplication extends Application {
         }
 
         // Add the letter to the guess
-        thisGuess.add(tileValue);
         int tileNum = wordleController.getGuessNum() * 5 + thisGuess.size();
         guessResultTiles.get(tileNum).setText(tileValue);
         guessResultTiles.get(tileNum).setBorder(new Border(Style.BORDER_BLACK));
+        thisGuess.add(tileValue);
     }
 
     // This method processes a guessed word
